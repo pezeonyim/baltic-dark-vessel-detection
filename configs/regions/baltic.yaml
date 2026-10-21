@@ -1,0 +1,18 @@
+# Target region: Baltic Sea, Danish straits, Kattegat and Skagerrak.
+name: baltic
+display_name: Baltic Sea and Danish Straits
+bbox:
+  min_lon: 8.0
+  min_lat: 53.0
+  max_lon: 30.5
+  max_lat: 66.0
+h3_resolution: 6
+source:
+  type: aisstream        # live websocket feed (plus Fintraffic Digitraffic)
+  params: {}
+default_period:
+  start: 2026-10-01
+  end: 2026-10-31
+zones_of_interest: data/reference/baltic_zones.geojson
+notes: >
+  Target region for the live app.

@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Data (large and regenerable). Keep curated reference data like ports and zones.
+data/*
+!data/reference/
+!data/.gitkeep
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Downloaded watchlists (licensed CC BY-NC, refreshed nightly; not committed)
+data/reference/opensanctions_*

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maritime Watch</title>
+  <link rel="stylesheet" href="/static/vendor/maplibre-gl-4.7.1.css">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div id="map" aria-label="Map of vessel positions"></div>
+
+  <aside id="panel" aria-label="Controls">
+    <header>
+      <h1>Maritime Watch</h1>
+      <div id="region" class="muted">Loading…</div>
+      <div id="status" class="status"><span class="dot" id="status-dot"></span><span id="status-text">Connecting…</span></div>
+    </header>
+
+    <section class="stats">
+      <div><span class="num" id="n-live">–</span><span class="muted">live</span></div>
+      <div><span class="num" id="n-quiet">–</span><span class="muted">last known</span></div>
+    </section>
+
+    <section>
+      <h2>Flag</h2>
+      <ul id="legend" class="legend"></ul>
+      <p class="hint muted">Flag is the country of registration, not ownership. Click to show or hide.</p>
+      <div class="symbols muted"><span class="sym-arrow" aria-hidden="true"></span> under way, pointing along course <span class="sym-dot" aria-hidden="true"></span> stopped</div>
+    </section>
+
+    <section>
+      <h2>Watchlists</h2>
+      <div class="watch-row"><span class="swatch ring"></span><span>⚠ Sanctioned or on Ukraine's shadow fleet list</span><span class="count" id="n-listed">–</span></div>
+      <p class="hint muted" id="watch-meta">Watchlist not loaded</p>
+    </section>
+
+    <section>
+      <h2>Satellite radar</h2>
+      <ul id="sar-legend" class="legend"></ul>
+      <p class="hint muted" id="sar-meta">No radar images processed yet</p>
+      <p class="hint muted">Sentinel-1 radar sees ships whether or not they broadcast AIS. A ship is only called dark where the AIS feed normally hears ships; elsewhere it is grey.</p>
+    </section>
+
+    <section class="filters">
+      <label><input type="checkbox" id="f-quiet" checked> Show last known positions <span class="muted">(silent &gt; <span id="quiet-min">30</span> min)</span></label>
+      <label><input type="checkbox" id="f-official"> Military &amp; law enforcement only</label>
+      <label><input type="checkbox" id="f-listed"> Watch-listed vessels only</label>
+    </section>
+
+    <section>
+      <h2>Highest risk</h2>
+      <label><input type="checkbox" id="risk-unlisted"> Not on any list only</label>
+      <ul id="risk-list" class="results risk" aria-live="polite"></ul>
+      <p class="hint muted" id="risk-meta">Risk scores not computed yet</p>
+    </section>
+
+    <section>
+      <h2>Find a vessel</h2>
+      <input id="search" type="search" placeholder="Name, MMSI or IMO" autocomplete="off">
+      <ul id="results" class="results" aria-live="polite"></ul>
+    </section>
+
+    <section>
+      <h2>About</h2>
+      <p class="hint muted">A read-only view of a research project that looks for ships in Sentinel-1 radar images
+        of the Baltic and checks them against AIS. A listed vessel is on a published sanctions or watch list; that
+        is not a finding that it is doing anything wrong now. A dark candidate is a lead, not an accusation.
+        Code and write-up: <a href="https://github.com/pezeonyim/baltic-dark-vessel-detection" target="_blank"
+        rel="noopener">github.com/pezeonyim/baltic-dark-vessel-detection</a>.</p>
+    </section>
+
+    <section>
+      <p class="hint muted">AIS: <a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a>;
+        Source: Fintraffic / <a href="https://www.digitraffic.fi/en/" target="_blank" rel="noopener">digitraffic.fi</a>,
+        license <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC 4.0 BY</a>.
+        Radar: Copernicus Sentinel-1 data. Watchlist: OpenSanctions.</p>
+    </section>
+  </aside>
+
+  <article id="detail" hidden aria-live="polite">
+    <button id="detail-close" class="close" aria-label="Close">×</button>
+    <h2 id="d-name"></h2>
+    <div id="d-sub" class="muted"></div>
+    <div id="d-watch" class="watch" hidden></div>
+    <dl id="d-fields"></dl>
+    <div id="d-track" class="muted"></div>
+  </article>
+
+  <div id="tooltip" role="tooltip" hidden></div>
+
+  <script src="/static/vendor/maplibre-gl-4.7.1.js"></script>
+  <script src="/static/vendor/deck.gl-9.4.0.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
